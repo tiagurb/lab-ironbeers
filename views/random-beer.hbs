@@ -1,1 +1,11 @@
 <h1>{{this.name}}</h1>
+<img src="{{this.image_url}}" alt="{{this.name}} beer" width="200">
+<p>{{this.description}}</p>
+<p>{{this.tagline}}</p>
+<h3>Food pairing</h3>
+<ul>
+    {{#each this.food_pairing}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
+<p>{{this.brewers_tips}}</p>
