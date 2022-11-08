@@ -9,6 +9,7 @@ const punkAPI = new PunkAPIWrapper();
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/beers', (req, res) => {
+/*app.get('/beers', (req, res) => {
   punkAPI
   .getBeers()
   .then(beersFromApi => {
@@ -30,9 +31,14 @@ app.get('/beers', (req, res) => {
     console.log('Beers from the database: ', beersFromApi)
 })
   .catch(error => console.log(error));
+});*/
+
+app.get('/beers', async (req, res) => {
+  const beers = await punkAPI.getBeer();
+  res.render('beers', {beers})
 });
 
-app.get('/random-beer', (req, res) => {
+/*app.get('/random-beer', (req, res) => {
   punkAPI
   .getRandom()
   .then(responseFromAPI => {
@@ -40,6 +46,11 @@ app.get('/random-beer', (req, res) => {
     console.log(responseFromAPI[0])
   })
   .catch(error => console.log(error));
+});*/
+
+app.get('/random-beer', async (req, res) => {
+  const randomBeer = await punkAPI.getRandom();
+  res.render('randomBeer', {randomBeer})
 });
 
 
